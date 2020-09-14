@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17189" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="TODO_TABLE" representedClassName="TODO_TABLE" syncable="YES">
+        <attribute name="createTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dayString" optional="YES" attributeType="String"/>
+        <attribute name="owner" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="String"/>
+        <attribute name="targetTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="toDoDetail" optional="YES" attributeType="String"/>
+        <attribute name="toDoTitle" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="TODO_TABLE" positionX="-54" positionY="-9" width="128" height="148"/>
+    </elements>
+</model>

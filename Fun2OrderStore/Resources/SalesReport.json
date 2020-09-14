@@ -1,0 +1,142 @@
+[
+    {
+        "rank": 1,
+        "previous_rank": 5,
+        "storeName": "分店004",
+        "salesMoney": 200000,
+        "bestSaleProduct": "紅茶"
+    },
+    {
+        "rank": 2,
+        "previous_rank": 20,
+        "storeName": "分店001",
+        "salesMoney": 195000,
+        "bestSaleProduct": "綠茶"
+    },
+    {
+        "rank": 3,
+        "previous_rank": 1,
+        "storeName": "分店005",
+        "salesMoney": 192000,
+        "bestSaleProduct": "綠茶"
+    },
+    {
+        "rank": 4,
+        "previous_rank": 2,
+        "storeName": "分店011",
+        "salesMoney": 180000,
+        "bestSaleProduct": "奶茶"
+    },
+    {
+        "rank": 5,
+        "previous_rank": 6,
+        "storeName": "分店012",
+        "salesMoney": 175000,
+        "bestSaleProduct": "紅茶"
+    },
+    {
+        "rank": 6,
+        "previous_rank": 7,
+        "storeName": "分店007",
+        "salesMoney": 172000,
+        "bestSaleProduct": "紅茶"
+    },
+    {
+        "rank": 7,
+        "previous_rank": 9,
+        "storeName": "分店013",
+        "salesMoney": 160000,
+        "bestSaleProduct": "青茶"
+    },
+    {
+        "rank": 8,
+        "previous_rank": 8,
+        "storeName": "分店006",
+        "salesMoney": 158000,
+        "bestSaleProduct": "烏龍茶"
+    },
+    {
+        "rank": 9,
+        "previous_rank": 11,
+        "storeName": "分店010",
+        "salesMoney": 153000,
+        "bestSaleProduct": "綠茶"
+    },
+    {
+        "rank": 10,
+        "previous_rank": 12,
+        "storeName": "分店020",
+        "salesMoney": 150000,
+        "bestSaleProduct": "紅茶"
+    },
+    {
+        "rank": 11,
+        "previous_rank": 4,
+        "storeName": "分店008",
+        "salesMoney": 145000,
+        "bestSaleProduct": "紅茶"
+    },
+    {
+        "rank": 12,
+        "previous_rank": 3,
+        "storeName": "分店019",
+        "salesMoney": 141000,
+        "bestSaleProduct": "紅茶"
+    },
+    {
+        "rank": 13,
+        "previous_rank": 10,
+        "storeName": "分店009",
+        "salesMoney": 140000,
+        "bestSaleProduct": "奶茶"
+    },
+    {
+        "rank": 14,
+        "previous_rank": 14,
+        "storeName": "分店002",
+        "salesMoney": 130000,
+        "bestSaleProduct": "奶茶"
+    },
+    {
+        "rank": 15,
+        "previous_rank": 15,
+        "storeName": "分店018",
+        "salesMoney": 128000,
+        "bestSaleProduct": "紅茶"
+    },
+    {
+        "rank": 16,
+        "previous_rank": 13,
+        "storeName": "分店015",
+        "salesMoney": 127000,
+        "bestSaleProduct": "紅茶"
+    },
+    {
+        "rank": 17,
+        "previous_rank": 18,
+        "storeName": "分店017",
+        "salesMoney": 125000,
+        "bestSaleProduct": "青茶"
+    },
+    {
+        "rank": 18,
+        "previous_rank": 19,
+        "storeName": "分店003",
+        "salesMoney": 121000,
+        "bestSaleProduct": "烏龍茶"
+    },
+    {
+        "rank": 19,
+        "previous_rank": 16,
+        "storeName": "分店016",
+        "salesMoney": 110000,
+        "bestSaleProduct": "烏龍茶"
+    },
+    {
+        "rank": 20,
+        "previous_rank": 17,
+        "storeName": "分店014",
+        "salesMoney": 100000,
+        "bestSaleProduct": "綠茶"
+    }
+]

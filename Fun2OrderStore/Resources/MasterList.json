@@ -1,0 +1,28 @@
+[
+    {
+        "id": 0,
+        "iconName": "Icon_Home",
+        "functionName": "首頁",
+        "accessLevel": 0
+    }, {
+        "id": 1,
+        "iconName": "Icon_Order_List",
+        "functionName": "訂單列表",
+        "accessLevel": 0
+    }, {
+        "id": 2,
+        "iconName": "Icon_Data_Maintain",
+        "functionName": "資料維護",
+        "accessLevel": 0
+    }, {
+        "id": 3,
+        "iconName": "Icon_Report",
+        "functionName": "報表系統",
+        "accessLevel": 0
+    }, {
+        "id": 4,
+        "iconName": "Icon_Setup",
+        "functionName": "設定",
+        "accessLevel": 0
+    }
+]

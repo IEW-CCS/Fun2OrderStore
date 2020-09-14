@@ -1,0 +1,18 @@
+[
+    {
+        "publishTime": "2020-09-05 08:00:00",
+        "messageTitle": "折扣訊息",
+        "messageDetail": "即日起(2020/09/05)各店紅茶買一送一。"
+    },
+    {
+        "publishTime": "2020-09-05 08:00:00",
+        "messageTitle": "尾牙訊息",
+        "messageDetail": "為獎勵員工辛苦，總公司給予每家分店三包各1000元之紅包，供各分店抽獎，犒賞員工。"
+    },
+    {
+        "publishTime": "2020-09-05 08:00:00",
+        "messageTitle": "結帳報表",
+        "messageDetail": "各分店每月銷售報表記得於隔月五日之前繳交。"
+    }
+]
+

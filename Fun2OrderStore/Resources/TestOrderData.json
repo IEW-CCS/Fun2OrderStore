@@ -1,0 +1,134 @@
+[
+    {
+        "orderStatus": "NEW",
+        "orderNumber": "M11111111",
+        "ownerName": "James",
+        "phoneNumber": "+886123456789",
+        "totalCount": 3,
+        "totalPrice": 80,
+        "deliveryFlag": false,
+        "updateTime": "2020-09-04 12:00:00",
+        "productList": [ 
+          {
+            "productName": "紅茶",
+            "productRecipe": "大杯 半糖 少冰",
+            "productCount": 1}, 
+          {
+            "productName": "綠茶",
+            "productRecipe": "大杯 微糖 少冰",
+            "productCount": 1}, 
+          {
+            "productName": "青茶",
+            "productRecipe": "大杯 微糖 去冰",
+            "productCount": 1}
+        ]
+    },
+    {
+        "orderStatus": "ACCEPT",
+        "orderNumber": "M22222222",
+        "ownerName": "James2",
+        "phoneNumber": "+886222222222",
+        "totalCount": 2,
+        "totalPrice": 40,
+        "deliveryFlag": false,
+        "updateTime": "2020-09-04 13:00:00",
+        "productList": [ 
+          {
+            "productName": "紅茶",
+            "productRecipe": "大杯 半糖 少冰",
+            "productCount": 1}, 
+          {
+            "productName": "綠茶",
+            "productRecipe": "大杯 微糖 少冰",
+            "productCount": 1}
+        ]
+    },
+    {
+        "orderStatus": "REJECT",
+        "orderNumber": "M33333333",
+        "ownerName": "James3",
+        "phoneNumber": "+886333333333",
+        "totalCount": 3,
+        "totalPrice": 80,
+        "deliveryFlag": false,
+        "updateTime": "2020-09-04 14:00:00",
+        "productList": [ 
+          {
+            "productName": "紅茶",
+            "productRecipe": "大杯 半糖 少冰",
+            "productCount": 1}, 
+          {
+            "productName": "綠茶",
+            "productRecipe": "大杯 微糖 少冰",
+            "productCount": 1}, 
+          {
+            "productName": "青茶",
+            "productRecipe": "大杯 微糖 去冰",
+            "productCount": 1}
+        ]
+    },
+    {
+        "orderStatus": "INPR",
+        "orderNumber": "M44444444",
+        "ownerName": "James4",
+        "phoneNumber": "+886444444444",
+        "totalCount": 1,
+        "totalPrice": 20,
+        "deliveryFlag": false,
+        "updateTime": "2020-09-04 15:00:00",
+        "productList": [ 
+          {
+            "productName": "紅茶",
+            "productRecipe": "大杯 半糖 少冰",
+            "productCount": 1}
+        ]
+    },
+    {
+        "orderStatus": "DELIVERY",
+        "orderNumber": "M55555555",
+        "ownerName": "James5",
+        "phoneNumber": "+886555555555",
+        "totalCount": 4,
+        "totalPrice": 80,
+        "deliveryFlag": false,
+        "updateTime": "2020-09-04 16:00:00",
+        "productList": [ 
+          {
+            "productName": "烏龍茶",
+            "productRecipe": "大杯 半糖 少冰",
+            "productCount": 1}, 
+          {
+            "productName": "紅茶",
+            "productRecipe": "大杯 半糖 少冰",
+            "productCount": 1}, 
+          {
+            "productName": "綠茶",
+            "productRecipe": "大杯 微糖 少冰",
+            "productCount": 1}, 
+          {
+            "productName": "青茶",
+            "productRecipe": "大杯 微糖 去冰",
+            "productCount": 1}
+        ]
+    },
+    {
+        "orderStatus": "CLOSE",
+        "orderNumber": "M66666666",
+        "ownerName": "James6",
+        "phoneNumber": "+886666666666",
+        "totalCount": 2,
+        "totalPrice": 60,
+        "deliveryFlag": false,
+        "updateTime": "2020-09-04 17:00:00",
+        "productList": [ 
+          {
+            "productName": "綠茶",
+            "productRecipe": "大杯 微糖 少冰",
+            "productCount": 1}, 
+          {
+            "productName": "青茶",
+            "productRecipe": "大杯 微糖 去冰",
+            "productCount": 1}
+        ]
+    }
+]

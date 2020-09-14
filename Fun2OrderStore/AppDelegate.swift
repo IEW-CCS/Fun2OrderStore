@@ -7,14 +7,16 @@
 
 import UIKit
 import CoreData
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        writeFirebaseConfig()
+        FirebaseApp.configure()
+        
         return true
     }
 
@@ -74,6 +76,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
+        }
+    }
+
+    func writeFirebaseConfig() {
+        let fm = FileManager.default
+        let src = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist")
+        let dst = NSHomeDirectory() + "/Documents/GoogleService-Info.plist"
+        
+        if !fm.fileExists(atPath: dst) {
+            try! fm.copyItem(atPath: src!, toPath: dst)
         }
     }
 
