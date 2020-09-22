@@ -487,7 +487,9 @@ struct MenuOrder: Codable  {
     var needContactInfoFlag: Bool?
     var deliveryInfo: MenuOrderDeliveryInformation?
     var orderHistory: [String: OrderHistoryRecord]?
-    
+    var coworkBrandFlag: Bool?
+    var groupOrderFlag: Bool?
+
     func toAnyObject() -> Any {
         var itemsArray: [Any] = [Any]()
         if !contentItems.isEmpty {
@@ -530,7 +532,9 @@ struct MenuOrder: Codable  {
             "limitedMenuItems": menuItemsArray,
             "needContactInfoFlag": needContactInfoFlag as Any,
             "deliveryInfo": deliveryInfo?.toAnyObject() as Any,
-            "orderHistory": historyArray
+            "orderHistory": historyArray,
+            "coworkBrandFlag": coworkBrandFlag as Any,
+            "groupOrderFlag": groupOrderFlag as Any
         ]
     }
 }
@@ -729,13 +733,45 @@ struct BrandMessage: Codable, Hashable {
     }
 }
 
-/*
-struct StoreOrderInformation: Codable, Identifiable {
-    var id: Int = 0
-    var brandName: String = ""
-    var storeID: Int = 0
-    var storeName: String = ""
+struct StoreNotificationData: Codable {
+    var orderOwnerID: String = ""
+    var orderOwnerName: String = ""
+    var orderOwnerToken: String = ""
     var orderNumber: String = ""
+    var notificationType: String = ""
+    var createTime: String = ""
     
+    func toAnyObject() -> Any {
+        return [
+            "orderOwnerID": orderOwnerID,
+            "orderOwnerName": orderOwnerName,
+            "orderOwnerToken": orderOwnerToken,
+            "orderNumber": orderNumber,
+            "notificationType": notificationType,
+            "createTime": createTime
+        ]
+    }
 }
-*/
+
+struct ShortageItem: Codable {
+    var sequenceNumber: Int = 0
+    var itemCategory : String = ""
+    var itemProduct: String = ""
+    var comments: String?
+  
+    
+    init(sequenceNumber: Int, category: String, product: String) {
+        self.sequenceNumber = sequenceNumber
+        self.itemCategory = category
+        self.itemProduct = product
+    }
+    
+    func toAnyObject() -> Any {
+        return [
+            "sequenceNumber": sequenceNumber,
+            "itemCategory": itemCategory,
+            "itemProduct": itemProduct,
+            "comments": comments as Any
+        ]
+    }
+}

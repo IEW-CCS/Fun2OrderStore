@@ -63,7 +63,7 @@ struct DataMaintainView: View {
             }
             .navigationBarHidden(true)
             //.navigationBarTitle(Text("Home"))
-            .edgesIgnoringSafeArea([.top, .bottom])
+            //.edgesIgnoringSafeArea([.top, .bottom])
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .edgesIgnoringSafeArea(.top)

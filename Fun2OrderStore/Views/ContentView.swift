@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 private let dateFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()
     dateFormatter.dateStyle = .medium
@@ -21,15 +20,18 @@ struct ContentView: View {
     @Environment(\.managedObjectContext)
     var viewContext
     @EnvironmentObject var userAuth : UserAuth
+    @EnvironmentObject var notificationFunction: NotificationFunctionID
  
     var body: some View {
         ZStack {
             if !userAuth.isLoggedIn {
-                LoginView(showModal: .constant(true)).environmentObject(self.userAuth)
+                LoginView(showModal: .constant(true))
+                    //.environmentObject(UserAuth())
             } else {
                 MasterView()
                     .background(Color(.black))
                     .navigationBarTitle(Text("選單"))
+                    //.environmentObject(NotificationFunctionID())
             }
         }
     }
@@ -39,6 +41,7 @@ struct MasterView: View {
     @Environment(\.managedObjectContext)
     var viewContext
     @State private var selectedView: Int? = 0
+    @EnvironmentObject var notificationFunction: NotificationFunctionID
 
     var body: some View {
         NavigationView {
@@ -79,8 +82,12 @@ struct MasterView: View {
             print("NavigationView onAppear")
             self.selectedView = 0
         }
+        .onReceive(self.notificationFunction.objectDidChange, perform: { functionID in
+            print("ContentView NavigationView onReceive function ID = \(functionID.functionID)")
+            self.selectedView = functionID.functionID
+        })
+
     }
-    
 }
 
 struct ContentView_Previews: PreviewProvider {

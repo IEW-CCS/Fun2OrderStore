@@ -10,17 +10,71 @@ import CoreData
 import Firebase
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
+    var notificationFunction: NotificationFunctionID = NotificationFunctionID()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         writeFirebaseConfig()
         FirebaseApp.configure()
         
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().delegate = self
+            let authOptions: UNAuthorizationOptions = [.alert, .badge]
+            UNUserNotificationCenter.current().requestAuthorization(options: authOptions, completionHandler: {_, _ in })
+            application.registerForRemoteNotifications()
+        } else {
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(types: [.alert, .badge], categories: nil)
+            UIApplication.shared.registerUserNotificationSettings(settings)
+        }
+
+        Messaging.messaging().delegate = self
+
         return true
     }
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+        print("**************************************")
+        print("********** Firebase registration token: \(fcmToken)")
 
-    // MARK: UISceneSession Lifecycle
+        let dataDict:[String: String] = ["token": fcmToken]
+        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
+
+        InstanceID.instanceID().instanceID { (result, error) in
+          if let error = error {
+            print("Error fetching remote instance ID: \(error)")
+          } else if let result = result {
+            print("Remote instance ID token: \(result.token)")
+            //self.saveInstanceID(instance_id: result.token)
+          }
+        }
+    }
+
+    private func application(application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        print("application didRegisterForRemoteNotificationsWithDeviceToken")
+        Messaging.messaging().apnsToken = deviceToken as Data
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print("-------- userNotificationCenter willPresent")
+        getTappedNotification(notification: notification, notification_function: self.notificationFunction)
+        
+        //self.notificationFunction.functionID = 1
+        completionHandler([.banner])
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("-------- userNotificationCenter  didReceive response")
+        
+        getTappedNotification(notification: response.notification, notification_function: self.notificationFunction)
+        //self.notificationFunction.functionID = 1
+        completionHandler()
+
+    }
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         // Called when a new scene session is being created.

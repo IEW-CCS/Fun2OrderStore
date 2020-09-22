@@ -345,6 +345,9 @@ struct DetailStoreInformation: Codable {
     var deliveryServiceFlag: Bool = false
     var deliveryService: [DeliveryServiceDefinition]?
     var businessTime: BusinessTime?
+    var storeState: String?
+    var normalProcessTime: Int?
+    var busyProcessTime: Int?
 
     func toAnyObject() -> Any {
         var deliveryArray: [Any] = [Any]()
@@ -372,7 +375,10 @@ struct DetailStoreInformation: Codable {
             "storePhoneNumber": storePhoneNumber as Any,
             "deliveryServiceFlag": deliveryServiceFlag,
             "deliveryService": deliveryArray,
-            "businessTime": businessTime?.toAnyObject() as Any
+            "businessTime": businessTime?.toAnyObject() as Any,
+            "storeState": storeState as Any,
+            "normalProcessTime": normalProcessTime as Any,
+            "busyProcessTime": busyProcessTime as Any
         ]
     }
 }
@@ -443,6 +449,19 @@ struct OrderHistoryRecord: Codable, Hashable {
             "claimUser": claimUser,
             "claimStatus": claimStatus
         ]
+    }
+}
+
+struct activityShortageItem: Codable, Identifiable {
+    var id : UUID = UUID()
+    var category : String
+    var product : String
+    var isShortage : Bool
+    
+    init(category: String, product: String, isShortage: Bool) {
+        self.category = category
+        self.product = product
+        self.isShortage = isShortage
     }
 }
 

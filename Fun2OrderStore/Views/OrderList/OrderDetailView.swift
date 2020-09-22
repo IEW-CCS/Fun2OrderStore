@@ -171,6 +171,7 @@ struct OrderDetailView: View {
         formatter.dateFormat = "yyyy-MM-dd"
         let dayString = formatter.string(from: Date())
         updateFBOrderStatus(user_auth: userAuth, order_data: self.orderDetail, day_string: dayString)
+        updateFBUserMenuOrderStatus(user_id: self.orderDetail.ownerUID, order_number: self.orderDetail.orderNumber, status_code: status_code)
     }
 }
 

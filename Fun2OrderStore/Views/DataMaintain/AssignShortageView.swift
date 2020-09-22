@@ -6,37 +6,45 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct AssignShortageView: View {
-    @State private var selectedIndex: Int = 0
-    private let categories: [String] = ["頂級茶道", "濃郁雪浮", "純天然鮮奶", "口感鮮茶"]
-    private let items: [[String]] = [["上宇林青茶", "上宇林紅茶", "三窨花綠茶", "蟲蝕烏龍茶"],
-                                     ["雪浮奶紅茶", "雪浮奶綠茶", "雪浮奶青茶", "雪浮奶烏龍茶", "雪浮奶美人"],
-                                     ["鼎級鮮奶茶", "太極鮮奶茶", "紅龍鮮奶茶", "鐵觀音鮮奶茶", "鮮奶綠茶", "鮮奶青茶"],
-                                     ["黃金多多綠", "梅香綠茶", "脆梅綠茶", "冬瓜茶", "冬瓜青茶"]]
+    
+    @State  private var selectedProduct: String = ""
+    @State  private var productItems: [String:[activityShortageItem]] = [String:[activityShortageItem]]()
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var userAuth: UserAuth
+   
     var body: some View {
         //ScrollView {
             VStack {
-                Text("請勾選目前缺貨之產品")
-                    .font(.title)
+                Text("請勾選目前缺貨之產品").font(.title)
                 
-                Text("目前選取之類別項數: \(items[selectedIndex].count)")
-                Picker(selection: $selectedIndex, label: Text("")) {
-                    ForEach(0 ..< categories.count) {
-                        Text(self.categories[$0])
+                HStack{
+                    Picker(selection: $selectedProduct, label: Text("")) {
+                        ForEach(productItems.keys.sorted(), id: \.self) { key in
+                            Text(key)
+                        }
                     }
+                    .labelsHidden()
+                    .pickerStyle(SegmentedPickerStyle())
                 }
-                .labelsHidden()
-                .pickerStyle(SegmentedPickerStyle())
+            
+                Spacer()
                 
                 Form {
-                    ForEach(0 ..< items[self.selectedIndex].count) { index in
-                        Text(self.items[self.selectedIndex][index])
-                            .padding()
+                    if let items = productItems[selectedProduct] {
+                        ForEach(0 ..< items.count , id:\.self) { index in
+                            HStack {
+                                Text((items[index].product)).padding()
+                                Spacer()
+                                Toggle("", isOn: self.binding(Section: selectedProduct, index: index))
+                            }
+                        }
                     }
                 }
 
-                Button(action: {print("Click to assign product shortage")}) {
+                Button(action: {self.updateShortageItem()}) {
                     Text("確定")
                         .font(.headline)
                         .foregroundColor(.white)
@@ -47,7 +55,93 @@ struct AssignShortageView: View {
                 }
             }
             .padding()
+            .onAppear(){
+                print("NavigationView onAppear with assign Shortage")
+                downloadProductItem(brandName : userAuth.userControl.brandName , storeName : userAuth.userControl.storeName)
+            }
         //}
+    }
+    
+    
+    private func binding( Section: String, index : Int) -> Binding<Bool> {
+            return .init(
+                get: { self.productItems[Section]![index].isShortage  },
+                set: { self.productItems[Section]![index].isShortage = $0 })
+   }
+    
+    
+    func downloadProductItem(brandName : String, storeName : String) {
+        downloadFBBrandStoreInfo(brand_name: brandName, store_name: storeName,   completion: { storeInfo in
+            if storeInfo == nil {
+                print("storeInfo is nil")
+                presentSimpleAlertMessage(title: "錯誤訊息", message: "品牌資料下載錯誤")
+                return
+            }
+            
+            let dispatchGroup = DispatchGroup()
+            
+            var shortageInfo:[ShortageItem]? = nil
+            dispatchGroup.enter()
+            downloadFBMenuShortageItem( brandName: brandName, storeName:storeName, completion: { tmpShortageInfo in
+                shortageInfo = tmpShortageInfo
+                dispatchGroup.leave()
+            })
+            
+            var detailMenuInfo: DetailMenuInformation? = nil
+            dispatchGroup.enter()
+            downloadFBDetailMenuInformation(menu_number: storeInfo!.storeMenuNumber, completion: { tmpDetailMenuInfo in
+                detailMenuInfo = tmpDetailMenuInfo
+                dispatchGroup.leave()
+            })
+                
+            
+            dispatchGroup.notify(queue: .main) {
+                if detailMenuInfo == nil {
+                    print("detailMenuInfo is nil")
+                    presentSimpleAlertMessage(title: "錯誤訊息", message: "產品資料下載錯誤")
+                    return
+                }
+                
+                if detailMenuInfo?.productCategory == nil {
+                    print("self.detailMenuInfo.productCategory is nil")
+                    presentSimpleAlertMessage(title: "錯誤訊息", message: "菜單並無任何產品資訊")
+                    return
+                }
+                
+                detailMenuInfo?.productCategory?.forEach{(category) in
+                    
+                    let CatetoryName = category.categoryName
+                    var CategoryItem = [activityShortageItem]()
+                    
+                    category.productItems?.forEach({ (DetailProductItem) in
+                        let isShortage = shortageInfo?.contains(where: { $0.itemProduct == DetailProductItem.productName }) ?? false
+                        CategoryItem.append(activityShortageItem( category: DetailProductItem.productCategory!, product: DetailProductItem.productName,  isShortage: isShortage))
+                    })
+                    productItems.updateValue(CategoryItem, forKey: CatetoryName)
+                }
+                selectedProduct = productItems.keys.sorted().first ?? ""
+            }
+        })
+    }
+
+    func updateShortageItem() {
+        
+        var shortageProductItemList: [activityShortageItem] = [activityShortageItem]()
+        productItems.forEach { key, value in
+            let shortageItems  = value.lazy.filter{ item in item.isShortage == true}
+            shortageProductItemList += shortageItems
+        }
+        
+        //------ FB Shortage Items List -------
+        var ShortageItemList: [ShortageItem] = [ShortageItem]()
+        shortageProductItemList.enumerated().forEach { (index,item)in
+            ShortageItemList.append(ShortageItem(sequenceNumber: index, category: item.category, product: item.product))
+        }
+        
+        //------ Upload to Firebase ----------
+        uploadFBMenuShortageItem(shortageInfo: ShortageItemList, brandName: userAuth.userControl.brandName, storeName: userAuth.userControl.storeName, completion: {})
+
+        self.presentationMode.wrappedValue.dismiss()
     }
 }
 

@@ -14,7 +14,8 @@ struct HomePage: View {
     @State private var toDoList: [ToDoData] = [ToDoData]()
     @State private var brandMessageList: [BrandMessage] = [BrandMessage]()
     @EnvironmentObject var userAuth: UserAuth
-    
+    @EnvironmentObject var notificationFunction: NotificationFunctionID
+
     var body: some View {
         ScrollView {
             VStack {
@@ -25,15 +26,16 @@ struct HomePage: View {
                     .onChange(of: currentDate) { newDate in
                         self.selectedDateChange()
                     }
-
-                Text("待辦事項")
-                    .font(.largeTitle)
-                    .foregroundColor(BACKGROUND_COLOR_ORANGE)
-                    .padding(5)
-                
-                ForEach(toDoList, id:\.self)  { toDoData in
-                    ToDoListCellView(toDoData: toDoData)
-                        .padding()
+                if !self.toDoList.isEmpty {
+                    Text("待辦事項")
+                        .font(.largeTitle)
+                        .foregroundColor(BACKGROUND_COLOR_ORANGE)
+                        .padding(5)
+                    
+                    ForEach(toDoList, id:\.self)  { toDoData in
+                        ToDoListCellView(toDoData: toDoData)
+                            .padding(5)
+                    }
                 }
                 
                 Text("公司訊息")
@@ -43,7 +45,7 @@ struct HomePage: View {
                 
                 ForEach(brandMessageList, id:\.self) { brandMessage in
                     BrandInfoListView(brandMessage: brandMessage)
-                        .padding()
+                        .padding(5)
                 }
             }
         }
@@ -56,6 +58,13 @@ struct HomePage: View {
             print("HomePage onAppear toDoList = \(self.toDoList)")
             self.queryBrandMessages()
         }
+        .onReceive(self.notificationFunction.objectDidChange, perform: { functionID in
+            if functionID.functionID == 0 {
+                print("OrderListView onReceive receives functionID change request, start to refresh Order List...")
+                self.queryBrandMessages()
+            }
+        })
+
     }
 
     func selectedDateChange() {

@@ -27,5 +27,15 @@ final class UserAuth: ObservableObject {
     func login() {
         self.isLoggedIn = true
     }
-    
+}
+
+final class NotificationFunctionID: ObservableObject {
+    let objectDidChange = PassthroughSubject<NotificationFunctionID, Never>()
+    let objectWillChange = PassthroughSubject<NotificationFunctionID, Never>()
+
+    @Published var functionID: Int = 0 {
+        didSet {
+            objectDidChange.send(self)
+        }
+    }
 }

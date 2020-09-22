@@ -55,14 +55,15 @@ struct OrderSummaryView: View {
                         .foregroundColor(Color.white)
                         .padding(5)
                         .frame(width: 100, alignment: .leading)
-                    Text(orderData.updateTime)
+                    //Text(orderData.updateTime)
+                    Text(convertOrderTime(order_time: orderData.updateTime))
                         .foregroundColor(Color.white)
                         .padding(5)
                     Spacer()
                 }
 
                 HStack {
-                    Text("取貨時間：")
+                    Text("取餐時間：")
                         .foregroundColor(Color.red)
                         .padding(5)
                         .frame(width: 100, alignment: .leading)
@@ -137,6 +138,18 @@ struct OrderSummaryView: View {
         //if let index = testOrderList.firstIndex(where: {$0.updateTime == orderData.updateTime}) {
         //    testOrderList.remove(at: index)
         //}
+    }
+    
+    func convertOrderTime(order_time: String) -> String {
+        var returnString: String = ""
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = DATETIME_FORMATTER
+        let orderDate = formatter.date(from: order_time)
+        formatter.dateFormat = TAIWAN_DATETIME_FORMATTER2
+        returnString = formatter.string(from: orderDate!)
+        
+        return returnString
     }
 }
 

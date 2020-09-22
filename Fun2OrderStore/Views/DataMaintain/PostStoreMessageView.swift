@@ -84,7 +84,39 @@ struct PostStoreMessageView: View {
         storeMessage.publishTime = timeString
         print("User's Brand = \(userAuth.userControl.brandName)")
         uploadFBBrandMessage(brand_name: userAuth.userControl.brandName, brand_message: storeMessage)
+        notifyAllStores()
         self.presentationMode.wrappedValue.dismiss()
+    }
+    
+    func notifyAllStores() {
+        downloadFBStoreUserControlList(brand_name: userAuth.userControl.brandName, completion: { userList in
+            if userList == nil {
+                print("No users to send notification")
+                return
+            }
+            
+            var tokenIDs: [String] = [String]()
+            for userData in userList! {
+                tokenIDs.append(userData.userToken)
+            }
+            
+            if tokenIDs.isEmpty {
+                print("No token id found")
+                return
+            }
+            
+            var storeNotify: StoreNotificationData = StoreNotificationData()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyyMMddHHmmssSSS"
+            let dateString = formatter.string(from: Date())
+            
+            storeNotify.createTime = dateString
+            storeNotify.notificationType = STORE_NOTIFICATION_TYPE_BRAND_MESSAGE
+            
+            let sender = PushNotificationSender()
+            sender.sendMulticastMessage(to: tokenIDs, title: "公司訊息", body: "來自總公司的訊息，請儘速點閱詳細內容", data: storeNotify, ostype: OS_TYPE_IOS)
+
+        })
     }
 }
 

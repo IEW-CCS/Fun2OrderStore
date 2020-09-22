@@ -48,7 +48,7 @@ struct LineChartSwiftUI: UIViewRepresentable {
     }
 
     func getLineChartDataSet() -> LineChartDataSet {
-        let dataPoints = getChartDataPoints(sessions: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], accuracy: [10.0, 40.0, 30.0, 33.0, 56.0, 78.0, 92.0, 60.0, 45.0, 88.0])
+        let dataPoints = getChartDataPoints(sessions: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], accuracy: [10.0, 40.0, 30.0, 33.0, 56.0, 78.0, 92.0, 85.0, 75.0, 108.0])
         let set = LineChartDataSet(entries: dataPoints, label: "Sales")
         set.lineWidth = 2.5
         set.circleRadius = 4

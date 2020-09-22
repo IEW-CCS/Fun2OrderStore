@@ -156,6 +156,10 @@ struct LoginView: View {
                     }
                     
                     userAuth.userControl = userControl!
+                    
+                    updateFBMyTokenID(user_auth: userAuth)
+                    print("verifyAuthentication() -> Token ID for userAuth is [\(userAuth.userControl.userToken)]")
+                    
                     userAuth.isLoggedIn = true
                     self.showModal = false
                 })
@@ -189,8 +193,13 @@ struct LoginView: View {
                     }
 
                     userAuth.userControl = userControl!
+
                     userAuth.isLoggedIn = true
                     self.showModal = false
+                    updateFBMyTokenID(user_auth: userAuth)
+                    print("autoLogin() -> Token ID for userAuth is [\(userAuth.userControl.userToken)]")
+
+
                 })
             }
         }

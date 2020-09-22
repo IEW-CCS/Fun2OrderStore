@@ -36,7 +36,7 @@ struct ChangeBusinessHourView: View {
 
                 Text("更改營業時間")
                     .font(.title)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.red)
                     .padding()
 
                 if UIDevice.current.userInterfaceIdiom == .pad {
@@ -44,6 +44,8 @@ struct ChangeBusinessHourView: View {
                         HStack {
                             VStack {
                                 Text("開始時間")
+                                    .foregroundColor(.red)
+                                
                                 DatePicker("", selection: $openDate, displayedComponents: .hourAndMinute)
                                     .datePickerStyle(WheelDatePickerStyle())
                                     .labelsHidden()
@@ -54,6 +56,8 @@ struct ChangeBusinessHourView: View {
 
                             VStack {
                                 Text("結束時間")
+                                    .foregroundColor(.red)
+                                
                                 DatePicker("", selection: $closeDate, displayedComponents: .hourAndMinute)
                                     .datePickerStyle(WheelDatePickerStyle())
                                     .labelsHidden()
@@ -68,6 +72,8 @@ struct ChangeBusinessHourView: View {
                 } else {
                     VStack {
                         Text("開始時間")
+                            .foregroundColor(.red)
+                        
                         DatePicker("", selection: $openDate, displayedComponents: .hourAndMinute)
                             .datePickerStyle(WheelDatePickerStyle())
                             .labelsHidden()
@@ -78,6 +84,8 @@ struct ChangeBusinessHourView: View {
 
                     VStack {
                         Text("結束時間")
+                            .foregroundColor(.red)
+                        
                         DatePicker("", selection: $closeDate, displayedComponents: .hourAndMinute)
                             .datePickerStyle(WheelDatePickerStyle())
                             .labelsHidden()

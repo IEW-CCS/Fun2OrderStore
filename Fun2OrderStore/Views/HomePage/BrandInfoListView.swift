@@ -28,7 +28,7 @@ struct BrandInfoListView: View {
 
                 }
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
-                .padding(10)
+                .padding(5)
                 .background(BACKGROUND_COLOR_GREEN)
                 .cornerRadius(10)
                 
@@ -36,7 +36,7 @@ struct BrandInfoListView: View {
                     Text(brandMessage.messageDetail)
                         .foregroundColor(Color.black)
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
-                        .padding(10)
+                        .padding(5)
                         .background(BACKGROUND_COLOR_LIGHTORANGE)
                         .cornerRadius(10)
                 }
@@ -48,7 +48,7 @@ struct BrandInfoListView: View {
             RoundedRectangle(cornerRadius: 5)
                 .stroke(BACKGROUND_COLOR_GREEN, lineWidth: 1.5)
         )
-        .padding(10)
+        .padding(5)
         .onTapGesture {
             print("Click BrandInfoListView")
             self.showDetailFlag = !self.showDetailFlag

@@ -11,8 +11,9 @@ import SwiftUI
 struct OrderListView: View {
     @State var orderList: [OrderSummaryData] = [OrderSummaryData]()
     @State var showDetailOrder: Bool = false
-    @State var selectedOrderIndex: Int = 0
+    @State var selectedOrderData: OrderSummaryData = OrderSummaryData()
     @EnvironmentObject var userAuth: UserAuth
+    @EnvironmentObject var notificationFunction: NotificationFunctionID
 
     var gridItemLayout: [GridItem] = {
         var gridCount: Int = 0
@@ -32,20 +33,27 @@ struct OrderListView: View {
                     if orderData.orderStatus != ORDER_STATUS_CLOSE {
                         OrderSummaryView(orderData: orderData)
                             .onTapGesture {
-                                self.selectedOrderIndex = orderList.firstIndex(where: {$0.orderNumber == orderData.orderNumber})!
-
                                 self.showDetailOrder = true
+                                self.selectedOrderData = orderData
                             }
                     }
                 }
             }
             .padding()
             .sheet(isPresented: self.$showDetailOrder) {
-                OrderDetailView(showFlag: self.$showDetailOrder, orderDetail: self.$orderList[self.selectedOrderIndex])
+                OrderDetailView(showFlag: self.$showDetailOrder, orderDetail: self.$selectedOrderData)
             }
             .onAppear() {
+                print("OrderListView onAppear starting...")
                 self.queryOrderList()
             }
+            .onReceive(self.notificationFunction.objectDidChange, perform: { functionID in
+                if functionID.functionID == 1 {
+                    print("OrderListView onReceive receives functionID change request, start to refresh Order List...")
+                    self.queryOrderList()
+                }
+            })
+
         }
     }
     
@@ -60,6 +68,11 @@ struct OrderListView: View {
                 self.orderList = summaryList!
             }
         })
+    }
+    
+    public func refreshOrderList() {
+        print("OrderListView refreshOrderList()")
+        self.queryOrderList()
     }
 }
 

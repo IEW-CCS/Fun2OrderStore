@@ -28,7 +28,7 @@ struct ToDoListCellView: View {
                     //.frame(minWidth: 0, maxWidth: .infinity, minHeight: 40)
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 60, alignment: .leading)
-            .padding(10)
+            .padding(5)
             .background(BACKGROUND_COLOR_RED)
             .cornerRadius(10)
         }
@@ -38,7 +38,7 @@ struct ToDoListCellView: View {
             RoundedRectangle(cornerRadius: 5)
                 .stroke(BACKGROUND_COLOR_RED, lineWidth: 1.5)
         )
-        .padding(10)
+        .padding(5)
     }
     
     func convertDateString() -> String {

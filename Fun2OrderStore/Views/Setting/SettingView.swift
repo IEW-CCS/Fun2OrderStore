@@ -11,6 +11,9 @@ import SwiftUI
 struct SettingView: View {
     @State private var normalTime: String = "20"
     @State private var busyTime: String = "40"
+    @State private var openDate: Date = Date()
+    @State private var closeDate: Date = Date()
+    @State var storeInformation: DetailStoreInformation = DetailStoreInformation()
     @EnvironmentObject var userAuth: UserAuth
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
@@ -20,19 +23,19 @@ struct SettingView: View {
                 VStack(alignment: .leading) {
                     Text("品牌： \(userAuth.userControl.brandName)")
                         .fontWeight(.bold)
-                        .foregroundColor(.blue)
+                        //.foregroundColor(.blue)
                         .frame(alignment: .leading)
                         .padding(5)
         
                     Text("分店： \(userAuth.userControl.storeName)")
                         .fontWeight(.bold)
-                        .foregroundColor(.blue)
+                        //.foregroundColor(.blue)
                         .frame(alignment: .leading)
                         .padding(5)
 
                     Text("使用者：\(userAuth.userControl.userEmail)")
                         .fontWeight(.bold)
-                        .foregroundColor(.blue)
+                        //.foregroundColor(.blue)
                         .frame(alignment: .leading)
                         .padding(5)
                 }
@@ -41,31 +44,47 @@ struct SettingView: View {
             Section(header: Text("設定製作時間").font(.title)) {
                 HStack {
                     Text("正常營業開始時間")
-                    Spacer()
+                        //.frame(width: 150)
+
+                    DatePicker("", selection: $openDate, displayedComponents: .hourAndMinute)
+                        .datePickerStyle(CompactDatePickerStyle())
+                        .labelsHidden()
+                        .accentColor(.blue)
+                        .padding()
+                        .clipped()
                    //Spacer()
                 }
 
                 HStack {
                     Text("正常營業結束時間")
-                    Spacer()
+                        //.frame(width: 150)
+
+                    DatePicker("", selection: $closeDate, displayedComponents: .hourAndMinute)
+                        .datePickerStyle(CompactDatePickerStyle())
+                        .labelsHidden()
+                        .accentColor(.blue)
+                        .padding()
+                        .clipped()
                     //Spacer()
                 }
 
                 HStack {
                     Text("正常製作時間")
-                    Spacer()
+                        //.frame(width: 150)
                     TextField("時間", text: $normalTime)
                         .foregroundColor(Color.blue)
+                        .multilineTextAlignment(.trailing)
                     Text("分")
-                    //Spacer()
                 }
                 
                 HStack {
                     Text("忙碌製作時間")
+                        //.frame(width: 150)
+                    
                     TextField("時間", text: $busyTime)
                         .foregroundColor(Color.blue)
+                        .multilineTextAlignment(.trailing)
                     Text("分")
-                    //Spacer()
                 }
                 
                 Button(action: { self.updateSetting() }) {
@@ -80,10 +99,40 @@ struct SettingView: View {
 
             }
         }
+        .onAppear() {
+            downloadFBDetailStoreInformation(brand_name: userAuth.userControl.brandName, store_name: userAuth.userControl.storeName, completion: { storeInfo in
+                if storeInfo != nil {
+                    self.storeInformation = storeInfo!
+                    if self.storeInformation.normalProcessTime == nil {
+                        self.normalTime = "0"
+                    } else {
+                        self.normalTime = String(self.storeInformation.normalProcessTime!)
+                    }
+
+                    if self.storeInformation.busyProcessTime == nil {
+                        self.busyTime = "0"
+                    } else {
+                        self.busyTime = String(self.storeInformation.busyProcessTime!)
+                    }
+                }
+            })
+        }
     }
     
     func updateSetting() {
         print("Click to update Setting")
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        
+        self.storeInformation.normalProcessTime = Int(self.normalTime)
+        self.storeInformation.busyProcessTime = Int(self.busyTime)
+        if self.storeInformation.businessTime == nil {
+            self.storeInformation.businessTime = BusinessTime()
+        }
+        self.storeInformation.businessTime!.openTime = formatter.string(from: self.openDate)
+        self.storeInformation.businessTime!.closeTime = formatter.string(from: self.closeDate)
+
+        updateFBDetailStoreInformation(brand_name: userAuth.userControl.brandName, store_info: self.storeInformation)
         self.presentationMode.wrappedValue.dismiss()
     }
 }

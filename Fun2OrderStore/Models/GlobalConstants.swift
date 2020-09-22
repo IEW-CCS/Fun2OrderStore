@@ -48,3 +48,15 @@ let STATUS_COLOR_PROCESSEND = Color(red: 57.0/255.0, green: 73.0/255.0, blue: 17
 let STATUS_COLOR_DELIVERY = Color(red: 0.0/255.0, green: 137.0/255.0, blue: 123.0/255.0, opacity: 1.0)
 let STATUS_COLOR_CLOSE = Color(red: 84.0/255.0, green: 110.0/255.0, blue: 122.0/255.0, opacity: 1.0)
 
+let STORE_NOTIFICATION_TYPE_NEW_ORDER = "NEW_ORDER"
+let STORE_NOTIFICATION_TYPE_BRAND_MESSAGE = "BRAND_MESSAGE"
+
+let OS_TYPE_IOS = "iOS"
+let OS_TYPE_ANDROID = "Android"
+
+let DATETIME_FORMATTER_DATE: String = "yyyyMMdd"
+let DATETIME_FORMATTER: String = "yyyyMMddHHmmssSSS"
+let DATETIME_FORMATTER2: String = "yyyyMMddHHmmss"
+let TAIWAN_DATETIME_FORMATTER: String = "yyyy年MM月dd日 HH:mm:ss"
+let TAIWAN_DATETIME_FORMATTER2: String = "yyyy年MM月dd日 HH:mm"
+let DATE_FORMATTER: String = "yyyy年MM月dd日"
