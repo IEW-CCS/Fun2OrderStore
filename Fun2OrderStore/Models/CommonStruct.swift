@@ -545,6 +545,7 @@ struct MenuOrderDeliveryInformation: Codable, Hashable {
     var deliveryAddress: String = ""
     var contactName: String = ""
     var contactPhoneNumber: String = ""
+    var separatePackageFlag: Bool = false
     
     func toAnyObject() -> Any {
         return [
@@ -552,7 +553,8 @@ struct MenuOrderDeliveryInformation: Codable, Hashable {
             "deliveryTime": deliveryTime,
             "deliveryAddress": deliveryAddress,
             "contactName": contactName,
-            "contactPhoneNumber": contactPhoneNumber
+            "contactPhoneNumber": contactPhoneNumber,
+            "separatePackageFlag": separatePackageFlag
         ]
     }
 }

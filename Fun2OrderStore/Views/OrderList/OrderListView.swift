@@ -53,7 +53,6 @@ struct OrderListView: View {
                     self.queryOrderList()
                 }
             })
-
         }
     }
     

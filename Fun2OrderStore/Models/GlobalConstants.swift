@@ -47,6 +47,8 @@ let STATUS_COLOR_INPROCESS = Color(red: 142.0/255.0, green: 36.0/255.0, blue: 17
 let STATUS_COLOR_PROCESSEND = Color(red: 57.0/255.0, green: 73.0/255.0, blue: 171.0/255.0, opacity: 1.0)
 let STATUS_COLOR_DELIVERY = Color(red: 0.0/255.0, green: 137.0/255.0, blue: 123.0/255.0, opacity: 1.0)
 let STATUS_COLOR_CLOSE = Color(red: 84.0/255.0, green: 110.0/255.0, blue: 122.0/255.0, opacity: 1.0)
+let DELIVERY_COLOR_TAKEOUT = Color(red: 255.0/255.0, green: 238.0/255.0, blue: 88.0/255.0, opacity: 1.0)
+let DELIVERY_COLOR_DELIVERY = Color(red: 251.0/255.0, green: 140.0/255.0, blue: 0.0/255.0, opacity: 1.0)
 
 let STORE_NOTIFICATION_TYPE_NEW_ORDER = "NEW_ORDER"
 let STORE_NOTIFICATION_TYPE_BRAND_MESSAGE = "BRAND_MESSAGE"

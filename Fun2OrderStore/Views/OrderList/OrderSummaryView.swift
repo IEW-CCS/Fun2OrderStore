@@ -111,6 +111,11 @@ struct OrderSummaryView: View {
             HStack {
                 Spacer()
                 VStack {
+                    //if self.orderData.deliveryInfo.deliveryType == DELIVERY_TYPE_TAKEOUT {
+                    //    Label("外帶", systemImage: "")
+                    //        .foregroundColor(.black)
+                    //        .background(DELIVERY_TYPE_TAKEOUT)
+                    //}
                     Button(action: {self.closeOrder()}, label: {
                     Image(systemName: "xmark.circle")
                         .font(.largeTitle)

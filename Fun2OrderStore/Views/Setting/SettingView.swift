@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct SettingView: View {
     @State private var normalTime: String = "20"
@@ -38,6 +39,14 @@ struct SettingView: View {
                         //.foregroundColor(.blue)
                         .frame(alignment: .leading)
                         .padding(5)
+                }
+
+                Button(action: { self.logout() }) {
+                    Text("登出")
+                        .fontWeight(.bold)
+                        .font(.headline)
+                        .foregroundColor(.red)
+                        .padding()
                 }
             }
             
@@ -134,6 +143,17 @@ struct SettingView: View {
 
         updateFBDetailStoreInformation(brand_name: userAuth.userControl.brandName, store_info: self.storeInformation)
         self.presentationMode.wrappedValue.dismiss()
+    }
+    
+    func logout() {
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print(error.localizedDescription)
+        }
+
+        userAuth.userControl = StoreUserControl()
+        userAuth.isLoggedIn = false
     }
 }
 
